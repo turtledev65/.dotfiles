@@ -1,0 +1,5 @@
+#!/bin/sh
+dunst &
+xset r rate 210 40
+
+exec bspwm
