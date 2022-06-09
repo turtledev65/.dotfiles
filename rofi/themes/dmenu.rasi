@@ -1,0 +1,71 @@
+* {
+  background-color:           #282828;
+  border-color:               #282828;
+
+  text-color:                 #ebdbb2;
+
+  height:                     28px;
+
+  font:                       "UbuntuMono Nerd Font Bold 11";
+  prompt-font:                "UbuntuMono Nerd Font Bold 11";
+
+  prompt-background:          #d65d0e;
+  prompt-foreground:          #ebdbb2;
+  prompt-padding:             5.5px;
+
+  selected-normal-background: #d65d0e;
+  selected-normal-foreground: #ebdbb2;
+}
+
+#window {
+  anchor: north;
+  location: north;
+  width: 100%;
+  padding: 0px;
+  children: [ horibox ];
+}
+
+#horibox {
+  orientation: horizontal;
+  children: [ prompt, entry, listview ];
+}
+
+#prompt {
+  padding:          @prompt-padding;
+  text-color:       @prompt-foreground;
+  background-color: @prompt-background;
+  font:             @prompt-font;
+}
+
+#listview {
+  layout: horizontal;
+  lines: 100;
+}
+
+#entry {
+  padding: 5.5px;
+  expand: false;
+  width: 10em;
+}
+
+#element {
+  padding: 6px 8px;
+}
+  
+#element selected {
+  background-color: @selected-normal-background;
+  text-color:       @selected-normal-foreground;
+}
+
+element-text {
+  background-color: inherit;
+  text-color:       inherit;
+}
+
+element-icon {
+  background-color: inherit;
+}
+
+element-icon selected {
+  background-color: inherit;
+}

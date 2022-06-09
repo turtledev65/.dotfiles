@@ -1,0 +1,9 @@
+configuration {
+  modi: "window,drun,run,combi,calc";
+  combi-modi: "window, drun,ssh";
+  font: "Mononoki Nerd Font 14";
+  display-run: "run:";
+  display-drun: "apps:";
+  drun-display-format: "{name}";
+ }
+@theme "~/.config/rofi/themes/dmenu.rasi"
