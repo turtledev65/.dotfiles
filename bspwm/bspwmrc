@@ -6,9 +6,13 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 ~/.fehbg &
 /usr/bin/emacs --daemon &
 xbanish &
+conky &
 
 killall bspswallow
 pidof bspswallow || bspswallow &
+
+# startup sound
+mpv --no-video ~/downloads/startup-1.mp3 &
 
 bspc monitor -d 1 2 3 4 5 6 7 8
 
