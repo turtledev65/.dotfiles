@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + shift + Return
-  rofi -show drun -show-icons -icon-theme "Papirus"
+  ffplay -nodisp -autoexit ~/downloads/menu-01.mp3 &; rofi -show drun -show-icons -icon-theme "Papirus"  
 
 # make sxhkd reload its configuration files:
 super + Escape
