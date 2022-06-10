@@ -127,8 +127,8 @@ c.statusbar.show = 'never'
 
 # Setting default page for when opening new tabs or new windows with
 # commands like :open -t and :open -w .
-c.url.default_page = 'https://duckduckgo.com/'
-c.url.start_pages = 'https://duckduckgo.com/'
+c.url.default_page = 'https://searx.tiekoetter.com'
+c.url.start_pages = 'https://searx.tiekoetter.com'
 
 # Search engines which can be used via the address bar.  Maps a search
 # engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
@@ -148,7 +148,7 @@ c.url.start_pages = 'https://duckduckgo.com/'
 # the search engine name to the search term, e.g. `:open google
 # qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 
+c.url.searchengines = {'DEFAULT': 'https://searx.tiekoetter.com/search?q={}', 
         'yt': 'https://www.youtube.com/results?search_query={}',
         'am': 'https://www.amazon.com/s?k={}', 
         'aw': 'https://wiki.archlinux.org/?search={}', 
