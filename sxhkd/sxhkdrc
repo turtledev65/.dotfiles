@@ -108,8 +108,8 @@ Print + shift
 super + alt + {e, b}
   {emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)', qutebrowser}
 
-super + alt + {v, n, c, a, m, t}
-  alacritty -e {nvim, alsamixer, cmus, ani-cli, manga-cli, gtop}
+super + alt + {v, p, c, a, m, t}
+  alacritty -e {nvim, pulsemixer, cmus, ani-cli, manga-cli, gtop}
 
 #
 # rofi scripts
