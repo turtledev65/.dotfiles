@@ -109,7 +109,7 @@ super + alt + {e, b}
   {emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)', qutebrowser}
 
 super + alt + {v, p, c, a, m, t}
-  alacritty -e {nvim, pulsemixer, cmus, ani-cli, manga-cli, gtop}
+  alacritty -e {nvim, pulsemixer, cmus, ani-cli -c, manga-cli, gtop}
 
 #
 # rofi scripts
