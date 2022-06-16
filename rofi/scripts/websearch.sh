@@ -10,11 +10,12 @@ CACHE_DIR="$HOME/.cache/stevenliebregt/rofi-scripts/web-search"
 BROWSER="qutebrowser"
 
 SITES=(
-  ["google"]="https://www.google.com/search?q="
+  ["  searx"]="https://searx.tiekoetter.com/search?q="
   ["  stackoverflow"]="https://www.stackoverflow.com/search?q="
   ["  github"]="https://www.github.com/search?q="
   ["  youtube"]="https://www.youtube.com/results?search_query="
 )
+
 
 # Show usage for the script.
 usage()
