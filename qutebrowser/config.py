@@ -115,6 +115,9 @@ config.set('content.notifications.enabled', True, 'https://www.youtube.com')
 # Type: Directory
 c.downloads.location.directory = '~/downloads'
 
+# Disable web history
+config.set('completion.web_history.max_items', 0)
+
 # When to show the tab bar.
 # Type: String
 # Valid values:
