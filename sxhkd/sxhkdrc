@@ -116,3 +116,9 @@ super + alt + {v, p, c, a, m, t}
 #
 super + r ; {r, c, w, s, e, p} 
   {rofi -show-icons -icon-theme "Papirus" -show run, rofi -show calc -modi calc -no-how-match -no-sort, ~/.config/rofi/scripts/wifi.sh, ~/.config/rofi/scripts/websearch.sh, ~/.config/rofi/scripts/confedit.sh, rofi-pass}
+
+#
+# emacs
+#
+super + e ; {b, d, v, e, a, i, m}
+  emacsclient -c -a 'emacs' --eval '{(ibuffer), (dired nil), (+vterm/here nil), (elfeed), (org-agenda-list), (erc-tls), (emms)}'
