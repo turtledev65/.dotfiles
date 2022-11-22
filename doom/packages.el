@@ -52,3 +52,5 @@
 (package! beacon)
 (package! dashboard)
 (package! rainbow-mode)
+(package! evil-nerd-commenter)
+(package! js-react-redux-yasnippets)

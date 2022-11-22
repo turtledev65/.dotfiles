@@ -3,7 +3,7 @@
 #+DESCRIPTION: My personal Doom Emacs config.
 
 * About this Config
-This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindin gs (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box. I am maintaining this config not just for myself, but al so for those that want to explore some of what is poss ible with Emacs.  I will add a lot of examples of plug ins and settings, some of them I may not even use personally.
+This is my personal Doom Emacs config. Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box. I am maintaining this config not just for myself, but al so for those that want to explore some of what is poss ible with Emacs.  I will add a lot of examples of plug ins and settings, some of them I may not even use personally.
 
 * Basic Config
 ** Fonts
@@ -31,6 +31,16 @@ This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs th
        :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 #+end_src
 
+** Word Wrap
+#+begin_src emacs-lisp
+(global-visual-line-mode t)
+#+end_src
+
+** Tabs
+#+begin_src emacs-lisp
+(setq tab-width 2)
+#+end_src
+
 ** Mouse Support
 #+begin_src emacs-lisp
 (xterm-mouse-mode 1)
@@ -38,13 +48,7 @@ This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs th
 
 ** Theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-gruvbox)
-(setq doom-themes-treemacs-theme "doom-colors")
-#+end_src
-
-** Toggle Word Wrap
-#+begin_src emacs-lisp
-(toggle-word-wrap)
+(setq doom-theme 'doom-one)
 #+end_src
 
 * Packages Configuration
@@ -58,15 +62,15 @@ This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs th
 (setq centaur-tabs-set-bar nil
       centaur-tabs-set-icons t
       centaur-tabs-gray-out-icons 'buffer
-      centaur-tabs-height 24
+      centaur-tabs-height 28
       centaur-tabs-set-modified-marker t
-      centaur-tabs-style "bar"
+      centaur-tabs-style "alternate"
       centaur-tabs-modified-marker "•")
 (map! :leader
       :desc "Toggle tabs globally" "t c" #'centaur-tabs-mode
       :desc "Toggle tabs local display" "t C" #'centaur-tabs-local-mode)
-(evil-define-key 'normal centaur-tabs-mode-map (kbd "g <right>") 'centaur-tabs-forward        ; default Doom binding is 'g t'
-                                               (kbd "g <left>")  'centaur-tabs-backward       ; default Doom binding is 'g T'
+(evil-define-key 'normal centaur-tabs-mode-map (kbd "g <right>") 'centaur-tabs-forward  ; default Doom binding is 'g t'
+                                               (kbd "g <left>")  'centaur-tabs-backward ; default Doom binding is 'g T'
                                                (kbd "g <down>")  'centaur-tabs-forward-group
                                                (kbd "g <up>")    'centaur-tabs-backward-group)
 #+end_src
@@ -79,20 +83,28 @@ This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs th
   (setq dashboard-set-file-icons t)
   (setq dashboard-banner-logo-title "Welcome to Emacs!")
   (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  (setq dashboard-center-content nil) ;; set to 't' for centered content
+  (setq dashboard-center-content t) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
                           (agenda . 5 )
                           (bookmarks . 5)
                           (projects . 5)
                           (registers . 5)))
+  (setq dashboard-week-agenda t)
+  (setq dashboard-agenda-prefix-format "%t %s ")
   :config
   (dashboard-setup-startup-hook)
   (dashboard-modify-heading-icons '((recents . "file-text")
                                     (bookmarks . "book"))))
 #+end_src
 
-** Foramting
+*** Dashboard in Emacsclient
 #+begin_src emacs-lisp
+(setq doom-fallback-buffer-name "*dashboard*")
+#+end_src
+
+** Formating
+#+begin_src emacs-lisp
+(setq lsp-javascript-format-enable nil)
 (setq +format-with-lsp nil)
 #+end_src
 
@@ -109,8 +121,8 @@ This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs th
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
-  (setq org-directory "~/nc/Org/"
-        org-agenda-files '("~/nc/Org/agenda.org")
+  (setq org-directory "~/org/"
+        org-agenda-files '("~/org/agenda.org")
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-item-bullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
@@ -132,8 +144,9 @@ This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs th
              "WAIT(w)"           ; Something is holding up this task
              "|"                 ; The pipe necessary to separate "active" states and "inactive" states
              "DONE(d)"           ; Task has been completed
-             "CANCELLED(c)" )))) ; Task has been cancelled
+             "CANCELLED(c)" ))))  ; Task has been cancelted
 #+end_src
+
 
 *** Set font sizes for each header level in Org
 #+begin_src emacs-lisp
@@ -144,4 +157,102 @@ This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs th
   '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
   '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
 )
+#+end_src
+
+** Prettify Symbols
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook (lambda ()
+   "Beautify Org Checkbox Symbol"
+   (push '("[ ]" . "") prettify-symbols-alist)
+   (push '("[X]" . "" ) prettify-symbols-alist)
+   (push '("[-]" . "❍" ) prettify-symbols-alist)
+   (prettify-symbols-mode)))
+#+end_src
+
+** Elfeed
+#+begin_src emacs-lisp
+;; (setq elfeed-goodies/entry-pane-size 0.5)
+;; (evil-define-key 'normal elfeed-show-mode-map
+;;   (kbd "J") 'elfeed-goodies/split-show-next
+;;   (kbd "K") 'elfeed-goodies/split-show-prev)
+;; (evil-define-key 'normal elfeed-search-mode-map
+;;   (kbd "J") 'elfeed-goodies/split-show-next
+;;   (kbd "K") 'elfeed-goodies/split-show-prev)
+;; (setq elfeed-feeds (quote
+;;                     (("https://www.reddit.com/r/linux.rss" reddit linux)
+;;                      ("https://www.reddit.com/r/unixporn.rss" reddit linux unixporn)
+;;                      ("https://www.reddit.com/r/commandline.rss" reddit linux commandline)
+;;                      ("https://www.reddit.com/r/anime.rss" reddit anime)
+;;                      ("https://www.reddit.com/r/animemes.rss" reddit anime memes)
+;;                      ("https://www.reddit.com/r/programming.rss" reddit programming)
+;;                      ("https://www.reddit.com/r/ProgrammerHumor.rss" reddit programming)
+;;                      ("https://www.reddit.com/r/webdev.rss" reddit programming webdev)
+;;                      ("https://www.reddit.com/r/emacs.rss" reddit emacs))))
+;; (after! elfeed)
+;;   (elfeed-update)
+#+end_src
+
+** Erc
+#+begin_src emacs-lisp
+;; (setq erc-prompt (lambda () (concat "[" (buffer-name) "]"))
+;;       erc-server "irc.libera.chat"
+;;       erc-nick "turtledev"
+;;       erc-user-full-name "Turtle Dev"
+;;       erc-track-shorten-start 24
+;;       erc-autojoin-channels-alist '(("irc.libera.chat" "#archlinux" "#linux" "#emacs"))
+;;       erc-kill-buffer-on-part t
+;;       erc-fill-column 100
+;;       erc-fill-function 'erc-fill-static
+;;       erc-fill-static-center 20)
+#+end_src
+
+** Emms
+#+begin_src emacs-lisp
+(emms-all)
+(emms-default-players)
+(emms-mode-line 1)
+(emms-playing-time 1)
+(setq emms-source-file-default-directory "~/music/"
+      emms-playlist-buffer-name "*Music*"
+      emms-info-asynchronously t
+      emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
+(map! :leader
+      (:prefix ("a" . "EMMS audio player")
+       :desc "Go to emms playlist" "a" #'emms-playlist-mode-go
+       :desc "Emms pause track" "x" #'emms-pause
+       :desc "Emms stop track" "s" #'emms-stop
+       :desc "Emms play previous track" "p" #'emms-previous
+       :desc "Emms play next track" "n" #'emms-next))
+#+end_src
+
+** MU4E
+#+begin_src emacs-lisp
+;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+;; (require 'mu4e)
+;; (require 'smtpmail)
+;; (setq mu4e-change-filenames-when-moving t)
+
+;; (setq mu4e-view-prefer-html nil)
+
+;; (setq mu4e-update-interval (* 10 60))
+;; (setq mu4e-headers-auto-update t)
+;; (setq mu4e-get-mail-command "mbsync -a")
+;; (setq mu4e-maildir "~/.mail")
+
+;; (setq mu4e-drafts-folder "/[Gmail]/Drafts")
+;; (setq mu4e-sent-folder   "/[Gmail]/Sent Mail")
+;; (setq mu4e-refile-folder "/[Gmail]/All Mail")
+;; (setq mu4e-trash-folder  "/[Gmail]/Trash")
+
+;; (setq mu4e-maildir-shortcuts
+;;     '((:maildir "/Inbox"    :key ?i)
+;;       (:maildir "/[Gmail]/Sent Mail" :key ?s)
+;;       (:maildir "/[Gmail]/Trash"     :key ?t)
+;;       (:maildir "/[Gmail]/Drafts"    :key ?d)
+;;       (:maildir "/[Gmail]/All Mail"  :key ?a)))
+#+end_src
+
+** Web Mode
+#+begin_src emacs-lisp
+(setq web-mode-enable-current-element-highlight t)
 #+end_src
