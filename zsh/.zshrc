@@ -47,8 +47,7 @@ bindkey -s '^o' 'ranger^M'
 bindkey -s '^f' 'zi^M'
 bindkey -s '^s' 'ncdu^M'
 bindkey -s '^n' 'nvim $(fzf)^M'
-bindkey -s '^v' 'nvim\n'
-bindkey -s '^z' 'zi^M'
+bindkey -s '^v' 'nvim^M'
 bindkey '^[[P' delete-char
 bindkey "^k" up-line-or-beginning-search # Up
 bindkey "^j" down-line-or-beginning-search # Down
@@ -68,4 +67,5 @@ autoload edit-command-line; zle -N edit-command-line
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+xset r rate 210 40 
 colorscript random

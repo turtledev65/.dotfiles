@@ -1,4 +1,4 @@
-export PATH=~/.emacs.d/bin:$PATH
+export PATH=~/.local/bin/:$PATH
 
 export TERM="xterm-256color" 
 export TERMINAL="alacritty"
@@ -10,8 +10,7 @@ export VISUAL="emacsclient -c -a emacs --eval '(dashboard-refresh-buffer)'"
 
 export BROWSER="qutebrowser"
 
-export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
- 
+export MANPAGER="/bin/sh -c \"col -b | lvim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
