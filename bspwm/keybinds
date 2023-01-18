@@ -18,7 +18,7 @@ super + {Left,Down,Up,Right}
 
 
 super + shift + q
-    rofi -show p -modi "p:rofi-power-menu --choices=shutdown/suspend/reboot"
+  rofi -show p -modi "p:rofi-power-menu --choices=shutdown/suspend/reboot"
 
 
 super + g
@@ -78,11 +78,14 @@ F7
 F8
   xbacklight -inc 5
 
+F10
+  toggle-touchpad
+
 #
 # Launchers
 #
 super + space
-  rofi -show drun -show-icons -icon-theme "Papirus"
+  rofi -show drun
 
 super + Return
   alacritty
@@ -103,3 +106,5 @@ super + d
   bspc node -g "sticky"
 # super + p
 #  bspc node -g "hidden"
+
+# vim: ft=cfg

@@ -14,12 +14,42 @@ function ResetAlacritty() {
   fi
 }
 
-function ReloadAlacritty() {
+function KillEww() {
+  if [[ `pidof eww` ]]; then 
+		pkill eww
+  fi
+}
+
+function ReloadEwwColorscheme() {
+  if [ -f "$HOME/.config/eww/scss/colors.scss" ]; then
+		cat ${bspdir}/colorschemes/$COLORSCHEME/eww-colors.scss > $HOME/.config/eww/scss/colors.scss
+  else
+		mkdir -p $HOME/.config/eww/scss/ && touch $HOME/.config/eww/scss/colors.scss
+		cat ${bspdir}/colorschemes/$COLORSCHEME/eww-colors.scss >  $HOME/.config/eww/scss/colors.scss
+  fi
+}
+
+function ReloadEww () {
+  KillEww 
+  ReloadEwwColorscheme
+}
+
+function ReloadAlacrittyColorscheme() {
   if [ -f "$HOME/.config/alacritty/alacritty.yml" ]; then
 		cat ${bspdir}/colorschemes/$COLORSCHEME/alacritty.yml > $HOME/.config/alacritty/alacritty.yml
   else
 		mkdir -p $HOME/.config/alacritty/ && touch $HOME/.config/alacritty/alacritty.yml
 		cat ${bspdir}/colorschemes/$COLORSCHEME/alacritty.yml > $HOME/.config/alacritty/alacritty.yml
+  fi
+}
+
+function ReloadLvimColorscheme() {
+  colorscheme="$(cat ${bspdir}/colorschemes/$COLORSCHEME/vim-colorscheme.lua)"
+  if [ -f "$HOME/.config/lvim/config.lua" ]; then
+    sed -i '/lvim.colorscheme/c\'"$colorscheme"'' $HOME/.config/lvim/config.lua 
+  else
+		mkdir -p $HOME/.config/lvim/ && touch $HOME/.config/lvim/config.lua
+    sed -i "/lvim.colorscheme/c\ $colorscheme" $HOME/.config/lvim/config.lua 
   fi
 }
 
@@ -45,7 +75,7 @@ function SetColorscheme() {
       SetBspwmColors "#3f444a" "#3f444a" "#51afef" "#3f444a"
       ;;
     gruvbox)
-      SetBspwmColors "#504945" "#504945" "#d65d0e" "#50494"
+      SetBspwmColors "#504945" "#504945" "#d65d0e" "#504945"
   esac
 }
 
@@ -54,18 +84,20 @@ function SetTheme() {
     minimal)
       SetBspwmConf 4 14 28
       ;;
-    modern)
+    rounded)
       SetBspwmConf 4 14 28
   esac
-
 }
 
-ReloadAlacritty
+ReloadEww
+ReloadLvimColorscheme
+ReloadAlacrittyColorscheme
 
 function AutoStart() {
-	launch sxhkd -c ${bspdir}/keybinds &
-  launch ${bspdir}/polybar.sh
-  # launch bspswallow &
-	# launch picom --config ${bspdir}/rices/$RICETHEME/picom.conf &
-	# launch /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+	launch sxhkd -c ${bspdir}/keybinds 
+  launch ${bspdir}/polybar.sh 
+  launch dunst -config ${bspdir}/colorschemes/$COLORSCHEME/dunstrc 
+  launch headphones-autoconnect
+  # launch picom --experimental-backends --config ${bspdir}/themes/$THEME/picom.conf &
+  # launch battery-notif &
 }

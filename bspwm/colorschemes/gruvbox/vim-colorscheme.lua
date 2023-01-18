@@ -1,0 +1,2 @@
+lvim.colorscheme = "gruvbox"
+
