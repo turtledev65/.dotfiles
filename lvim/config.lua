@@ -2,6 +2,7 @@
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
 vim.opt.timeoutlen = 100
+vim.opt.termguicolors = true
 
 vim.keymap.set("i", "jk", "<ESC>", {})
 vim.keymap.set("i", "kj", "<ESC>", {})
@@ -9,10 +10,13 @@ vim.keymap.set("i", "kj", "<ESC>", {})
 -- general
 lvim.log.level = "info"
 lvim.format_on_save = true
-lvim.colorscheme = os.getenv("COLORSCHEME")
+
+-- Set The Colorscheme
+lvim.colorscheme = "gruvbox"
 
 -- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
 lvim.leader = "space"
+
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
