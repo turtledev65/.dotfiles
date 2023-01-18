@@ -21,7 +21,7 @@ config.load_autoconfig(False)
 c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'}
 
 # Setting dark mode
-#config.set("colors.webpage.darkmode.enabled", True)
+# config.set("colors.webpage.darkmode.enabled", True)
 
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
@@ -38,6 +38,9 @@ c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'}
 #   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
 #   - never: Don't accept cookies at all.
 config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
+
+## Disable Adblogin (I use /etc/hosts)
+config.set('content.blocking.enabled', False)
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
 # other features with tracking capabilities similar to those of cookies;
@@ -130,8 +133,8 @@ c.statusbar.show = 'never'
 
 # Setting default page for when opening new tabs or new windows with
 # commands like :open -t and :open -w .
-c.url.default_page = 'https://searx.tiekoetter.com'
-c.url.start_pages = 'https://searx.tiekoetter.com'
+c.url.default_page = 'https://serx.ml/'
+c.url.start_pages = 'https://serx.ml/'
 
 # Search engines which can be used via the address bar.  Maps a search
 # engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
@@ -151,14 +154,16 @@ c.url.start_pages = 'https://searx.tiekoetter.com'
 # the search engine name to the search term, e.g. `:open google
 # qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://searx.tiekoetter.com/search?q={}', 
+c.url.searchengines = {'DEFAULT': 'https://serx.ml//search?q={}',
         'yt': 'https://www.youtube.com/results?search_query={}',
         'am': 'https://www.amazon.com/s?k={}', 
         'aw': 'https://wiki.archlinux.org/?search={}', 
         'go': 'https://www.google.com/search?q={}',
         'gh': 'https://github.com/search?q={}',
         'so': 'https://www.stackoverflow.com/search?q={}',
-        're': 'https://www.reddit.com/r/{}', 
+        're': 'https://www.reddit.com/r/{}',
+        'tw': 'https://twitter.com/search?q={}',
+        'mal': 'https://myanimelist.net/search/all?q={}',
         'wiki': 'https://en.wikipedia.org/wiki/{}'} 
 
 # Gruvbox dark, medium scheme by Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
@@ -495,7 +500,7 @@ c.fonts.statusbar = '11pt "sans-serif"'
 
 # Bindings for normal mode
 config.bind('M', 'hint links spawn mpv {hint-url}')
-config.bind('Z', 'hint links spawn st -e youtube-dl {hint-url}')
+config.bind('Z', 'hint links spawn alacritty -e yt-dlp {hint-url}')
 config.bind('t', 'set-cmd-text -s :open -t')
 config.bind('xb', 'config-cycle statusbar.show always never')
 config.bind('xt', 'config-cycle tabs.show always never')
